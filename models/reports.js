@@ -14,11 +14,6 @@ const reportSchema=new mongoose.Schema({
         ref:Patient
     },
 
-    date:{
-        type:date,
-        required:true
-    },
-   
     status:{
         type:String,
         enum: ['Negative','Travelled-Quarantine','Symptoms-Quarantine','Positive-Admit'],
