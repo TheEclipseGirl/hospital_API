@@ -7,12 +7,12 @@ const opts = {}
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = 'secret';
 passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
-    Doctor.findOne({email:require.body.email}, function(err, user) {
+    Doctor.findOne({id:jwt_payload.sub}, function(err, doctor) {
         if (err) {
             return done(err, false);
         }
         if (doctor) {
-            return done(null, user);
+            return done(null, doctor);
         } else {
             return done(null, false);
             
