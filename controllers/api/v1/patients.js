@@ -65,4 +65,39 @@ module.exports.createReport=async function(req,res){
     }
 }
 
-// 
+// All Reports visible
+module.exports.allReports=async function(req,res){
+    try {
+    let patient= await Patient.findById(req.params.id).populate({
+        path: 'reports',
+        populate: {
+            path: 'doctor'
+        }
+    })
+    .sort({'createdAt':1});
+
+    
+        if(patient){
+
+            return res.json(200,{
+                message:'All Reports of ' +   patient.name,
+                data:patient.reports
+            });
+
+        }else{
+
+            return res.json(404,{
+                message:'Patient Does Not Exist!'
+            });
+        }
+        
+    } 
+    catch (error) {
+        console.log(error);
+        return res.json(500,{
+            message:'Internal Server Error'
+        });
+        
+    }
+
+}
