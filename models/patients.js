@@ -1,4 +1,7 @@
 const mongoose=require('mongoose');
+
+// Schema For Patient whoever is in DATABASE
+
 const patientsSchema=new mongoose.Schema({
     name:{
         type:String,

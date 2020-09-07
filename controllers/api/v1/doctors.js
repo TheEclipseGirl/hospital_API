@@ -1,8 +1,12 @@
 const Doctor=require('../../../models/doctors');
 const jwt=require('jsonwebtoken');
-// Create An Async Function For Registeration
+
+// **************************Create An Async Function For Doctor's  Registeration:*****************
+
 module.exports.register=async function(req,res){
     try {
+
+         // Find By Email for Registration
 
      let doctor = await  Doctor.findOne({email:req.body.email});
         if(doctor){
@@ -23,10 +27,11 @@ module.exports.register=async function(req,res){
     }
 }
 
-// Create An Async Function For Sign In
+// ********************Create An Async Function For Sign In of Doctors **************************
 
 module.exports.logIn=async function(req,res){
     try {
+        // Find By Email for LogIn
        let doctor=await Doctor.findOne({email:req.body.email});
         if(!doctor || doctor.password!=req.body.password){
 

@@ -1,7 +1,10 @@
 const Report=require('../../../models/reports');
+
+// ****************the reports of all the patients filtered by a specific Status***************
+
 module.exports.filter=async function(req,res){
 try {
-    
+    // Find Using Status of Patient 
     let status= await Report.find({status:req.params.status})
     .populate(
        [

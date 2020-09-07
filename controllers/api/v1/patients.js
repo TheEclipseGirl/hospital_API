@@ -2,8 +2,12 @@ const Patient=require('../../../models/patients');
 const Report=require('../../../models/reports');
 const jwt=require('jsonwebtoken');
 const { report } = require('../../../routes/api/v1/patients');
+
+//  ************Create An Async Function For Registeration of Patients:*****************
+
 module.exports.register= async function(req,res){
-    let patient= await Patient.findOne({contact:req.body.contact});
+    // Patient Find Using Contact
+    let patient= await (await Patient.findOne({contact:req.body.contact})).populate(reports);
     try{
     if(patient){
         return res.json(409,{
@@ -26,12 +30,14 @@ catch(error){
 
 
 }
-// Create Report
+// *****************Create Report**********************
+
 module.exports.createReport=async function(req,res){
     try {
+        // Patient Find Using url Id
        let patient = await Patient.findById(req.params.id);
        if(patient){
-        // Patient is found now create report
+        //**********Patient is found now create report******************
             
         let headers=req.headers.authorization;
         let tokenArray=headers.split(' ');
@@ -65,9 +71,12 @@ module.exports.createReport=async function(req,res){
     }
 }
 
-// All Reports visible
+//******************All Reports Should visible*************************
+
 module.exports.allReports=async function(req,res){
     try {
+        // Patient Find By Id and doctors and reports also have been shown in details using populate function 
+        
     let patient= await Patient.findById(req.params.id).populate({
         path: 'reports',
         populate: {

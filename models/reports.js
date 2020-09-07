@@ -1,6 +1,9 @@
 const mongoose=require('mongoose');
 const Doctor = require('./doctors');
 const Patient = require('./patients');
+
+// Schema For Report of Patient whoever is in DATABASE
+
 const reportSchema=new mongoose.Schema({
 
     doctor:{
